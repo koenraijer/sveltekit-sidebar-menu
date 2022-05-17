@@ -52,12 +52,12 @@
 
         <!-- Menu items -->
         <div class="hidden lg:block">
-          <ul class="">
+          <ul class="flex flex-row row-nowrap justify-start">
             {#each navigation as item}
                 {#if item.navigation}
-                    <li class="pl-4">
+                    <li class="pr-4 dropdown dropdown-hover">
                         <!-- svelte-ignore a11y-label-has-associated-control -->
-                        <label tabindex="0" class="px-4 py-3 gap-3">
+                        <label tabindex="0" class="">
                             <a sveltekit:prefetch href={item.url} tabindex="0" class="">{item.title}</a>
                         </label>
                         <ul tabindex="0" class="menu dropdown-content w-fit !top-full">
@@ -67,7 +67,7 @@
                         </ul>
                     </li>
                 {:else}
-                    <li><a sveltekit:prefetch href={item.url}>{item.title}</a></li>
+                    <li class="pr-4"><a sveltekit:prefetch href={item.url}>{item.title}</a></li>
                 {/if}
             {/each}
           </ul>
@@ -95,15 +95,15 @@
     </div>
 
     <!-- Sidebar menu items -->
-    <ul class="">
+    <ul class="text-lg">
         {#each navigation as item}
             {#if item.navigation}
                 <li class="pb-2">
                     <!-- svelte-ignore a11y-label-has-associated-control -->
                     <a sveltekit:prefetch href={item.url}>{item.title}</a>
-                    <ul class="pl-4">
+                    <ul class="pl-4 pt-2">
                         {#each item.navigation as sub_item}
-                            <li><a sveltekit:prefetch href={sub_item.url}>{sub_item.title}</a></li>
+                            <li class="pb-2"><a sveltekit:prefetch href={sub_item.url}>{sub_item.title}</a></li>
                         {/each}
                     </ul>
                 </li>
@@ -115,4 +115,12 @@
 </aside>
 {/if}
 
+<style>
+    .menu :where(li) > :where(:not(ul)) {
+        @apply p-0 gap-0
+    }
 
+    .menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul):focus), .menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul):hover) {
+        @apply bg-transparent
+    }
+</style>

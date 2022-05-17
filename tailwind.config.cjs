@@ -7,7 +7,7 @@ const config = {
 		extend: {}
 	},
 
-	plugins: [typography]
+	plugins: [typography, require('daisyui')]
 };
 
 module.exports = config;
